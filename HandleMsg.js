@@ -1278,9 +1278,9 @@ const HandleMsg = async (client, message, browser) => {
 
                     //Random Images
                     case 'anime':
-                        if (args.length == 0) return client.reply(from, `Untuk menggunakan ${prefix}anime\nSilahkan ketik: ${prefix}anime [query]\nContoh: ${prefix}anime random\n\nquery yang tersedia:\nloli, milf, takagi, kanna`, id)
-                        if (args[0] === 'loli' || args[0] === 'milf' || args[0] === 'takagi' || args[0] === 'kanna' ||args[0] === 'waifu') {
-                            client.sendFileFromUrl(from, `https://zenzapi.xyz/api/random/${args[0]}?apikey=zenz`, `Anime.jpg`, '', id).catch(e => {
+                        if (args.length == 0) return client.reply(from, `Untuk menggunakan ${prefix}anime\nSilahkan ketik: ${prefix}anime [query]\nContoh: ${prefix}anime random\n\nquery yang tersedia:\nloli, waifu, husbu, neko`, id)
+                        if (args[0] === 'loli' || args[0] === 'waifu' || args[0] === 'husbu' || args[0] === 'neko') {
+                            client.sendFileFromUrl(from, `https://fxc7-api.herokuapp.com/api/anime/${args[1]}?apikey=Fxc7`, `Anime.jpg`, '', id).catch(e => {
                                 console.log(`Anime ${args[0]} err : ${e}`)
                                 return client.sendText(from, 'Mungkin Sedang Dalam Perbaikan', id)
                             })}
