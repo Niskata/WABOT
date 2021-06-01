@@ -2169,37 +2169,20 @@ const HandleMsg = async (client, message, browser) => {
                     //Owner Bot
                     case 'ban': {
                         if (!isOwnerBot) return client.reply(from, resMsg.error.owner, id)
-                        if (args.length == 0) return client.reply(from, `Untuk banned seseorang agar tidak bisa menggunakan commands\n\nCaranya ketik: \n${prefix}ban 628xx --untuk mengaktifkan\n${prefix}unban 628xx --untuk nonaktifkan\n\ncara cepat ban banyak digrup ketik:\n${prefix}ban @tag @tag @tag`, id)
-                        if (args.length == 1) {
-                            const numId = args[0].replace(/\+/g, '').replace(/\s/g, '').replace(/-/g, '') + '@c.us'
-                            let pos = banned.indexOf(numId)
-                            if (pos != -1) return client.reply(from, 'Target already banned!', id)
-                            banned.push(numId)
-                            fs.writeFileSync('./data/banned.json', JSON.stringify(banned))
-                            client.reply(from, 'Success banned target!', id)
-                        } else {
-                            for (let m of mentionedJidList) {
-                                let pos = banned.indexOf(m)
-                                if (pos != -1) client.reply(from, 'Target already banned!', id)
-                                else {
-                                    banned.push(m)
-                                    fs.writeFileSync('./data/banned.json', JSON.stringify(banned))
-                                    client.reply(from, `Success ban ${m.replace('@c.us', '')}!`, id)
-                                }
-                            }
+                        for (let i = 0; i < mentionedJidList.length; i++) {
+                        banned.push(mentionedJidList[i])
+                        fs.writeFileSync('./lib/banned.json', JSON.stringify(banned))
+                      client.reply(from, 'Succes ban target!',id)
                         }
                         break
                     }
 
                     case 'unban': {
                         if (!isOwnerBot) return client.reply(from, resMsg.error.owner, id)
-                        if (args.length == 0) return client.reply(from, `Untuk banned seseorang agar tidak bisa menggunakan commands\n\nCaranya ketik: \n${prefix}ban 628xx --untuk mengaktifkan\n${prefix}unban 628xx --untuk nonaktifkan\n\ncara cepat ban banyak digrup ketik:\n${prefix}ban @tag @tag @tag`, id)
-                        const numId = args[0].replace(/\+/g, '').replace(/\s/g, '').replace(/-/g, '') + '@c.us'
-                        let pos = banned.indexOf(numId)
-                        if (pos === -1) return client.reply(from, 'Not found!', id)
-                        banned.splice(pos, 1)
-                        fs.writeFileSync('./data/banned.json', JSON.stringify(banned))
-                        client.reply(from, 'Success unbanned target!', id)
+                        let inz = banned.indexOf(mentionedJidList[0])
+                banned.splice(inz, 1)
+                fs.writeFileSync('./lib/banned.json', JSON.stringify(banned))
+                tobz.reply(from, 'Unbanned User!', id)
                     }
                         break
 
