@@ -73,8 +73,40 @@ let {
     ownerNumber,
     memberLimit,
     groupLimit,
-    prefix
+    prefix,
+    banChats,
+    mtc: mtcState 
 } = setting
+
+let state = {
+    status: () => {
+        if(banChats){
+            return 'Nonaktif'
+        }else if(mtcState){
+            return 'Nonaktif'
+        }else if(!mtcState){
+            return 'Aktif'
+        }else{
+            return 'Aktif'
+        }
+    }
+}
+
+function banChat () {
+    if(banChats == true) {
+    return false
+}else{
+    return true
+    }
+}
+
+const isMuted = (chatId) => {
+    if(muted.includes(chatId)){
+      return false
+  }else{
+      return true
+      }
+  }
 
 function monospace(string) {
     return '```' + string + '```'
@@ -151,6 +183,8 @@ const HandleMsg = async (client, message, browser) => {
 
         if (type === 'chat') var chats = body
         else var chats = (type === 'image' || type === 'video') ? caption : ''
+	
+	const blockNumber = await client.getBlockedIds()
 
         const pengirim = sender.id
         const isBotGroupAdmins = groupAdmins.includes(botNumber) || false
@@ -174,6 +208,7 @@ const HandleMsg = async (client, message, browser) => {
         // [IDENTIFY]
         var isKasar = false
         const isCmd = body.startsWith(prefix)
+	const isBlocked = blockNumber.includes(sender.id)
         const isGroupAdmins = groupAdmins.includes(sender.id) || false
         const isQuotedImage = quotedMsg && quotedMsg.type === 'image'
         const isQuotedVideo = quotedMsg && quotedMsg.type === 'video'
@@ -272,9 +307,60 @@ const HandleMsg = async (client, message, browser) => {
         if (message.mentionedJidList && message.mentionedJidList.includes(botNumber)) client.reply(from, `Iya, ada apa?`, id)
 
         // Ini Command nya
-        if (isCmd) {
+        if(body === '#mute' && isMuted(chatId) == true){
+                if(isGroupMsg) {
+                    if (!isGroupAdmins) return client.reply(from, 'Maaf, perintah ini hanya dapat dilakukan oleh admin!', id)
+                    muted.push(chatId)
+                    fs.writeFileSync('./settings/muted.json', JSON.stringify(muted, null, 2))
+                    client.reply(from, 'Bot telah di mute pada chat ini! #unmute untuk unmute!', id)
+                }else{
+                    muted.push(chatId)
+                    fs.writeFileSync('./settings/muted.json', JSON.stringify(muted, null, 2))
+                    reply(from, 'Bot telah di mute pada chat ini! #unmute untuk unmute!', id)
+                }
+            }
+            if(body === '#unmute' && isMuted(chatId) == false){
+                if(isGroupMsg) {
+                    if (!isGroupAdmins) return client.reply(from, 'Maaf, perintah ini hanya dapat dilakukan oleh admin!', id)
+                    let index = muted.indexOf(chatId);
+                    muted.splice(index,1)
+                    fs.writeFileSync('./settings/muted.json', JSON.stringify(muted, null, 2))
+                    client.reply(from, 'Bot telah di unmute!', id)         
+                }else{
+                    let index = muted.indexOf(chatId);
+                    muted.splice(index,1)
+                    fs.writeFileSync('./settings/muted.json', JSON.stringify(muted, null, 2))
+                    client.reply(from, 'Bot telah di unmute!', id)                   
+                }
+            }
+            if (body === '#unbanchat') {
+                if (!isOwnerBot) return client.reply(from, 'Maaf, perintah ini hanya dapat dilakukan oleh Owner Renge!', id)
+                if(setting.banChats === false) return
+                setting.banChats = false
+                banChats = false
+                fs.writeFileSync('./settings/setting.json', JSON.stringify(setting, null, 2))
+                client.reply('Global chat has been disable!')
+            }
+    if (isMuted(chatId) && banChat() && !isBlocked && !isBanned )
             client.simulateTyping(chat.id, true).then(async () => {
                 switch (command) {
+                    // Menu and TnC
+                    case 'banchat':
+                        if (setting.banChats === true) return
+                        if (!isOwnerBot) return client.reply(from, 'Perintah ini hanya bisa di gunakan oleh Owner Elaina!', id)
+                        setting.banChats = true
+                        banChats = true
+                        fs.writeFileSync('./settings/setting.json', JSON.stringify(setting, null, 2))
+                        client.reply('Global chat has been enable!')
+                        break
+                    case 'unmute':
+                        console.log(`Unmuted ${name}!`)
+                        await client.sendSeen(from)
+                        break
+                    case 'unbanchat':
+                        console.log(`Banchat ${name}!`)
+                        await client.sendSeen(from)
+                        break
                     // Menu and TnC
                     case 'tnc':
                         await client.sendText(from, menuId.textTnC())
