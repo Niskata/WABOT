@@ -1384,8 +1384,24 @@ const HandleMsg = async (client, message, browser) => {
                             client.sendFileFromUrl(from, `https://fxc7-api.herokuapp.com/api/anime/${args[0]}?apikey=Fxc7`, `Anime.jpg`, '', id).catch(e => {
                                 console.log(`Anime ${args[0]} err : ${e}`)
                                 return client.sendText(from, 'Mungkin Sedang Dalam Perbaikan', id)
-                            })}
-                            break        
+                            })}else if (args[0] === 'ongoing') {
+                                try {
+                                    const ongo = await fetch(`http://zekais-api.herokuapp.com/nanimenew`)
+                                    if (!ongo.ok) throw new Error(`unexpected response ${ongo.statusText}`)
+                                    const jsonsercs = await ongo.json()
+                                    const { result } = await jsonsercs
+                                    let xixixi = `*「 ONGOING 」*\n`
+                                    for (let i = 0; i < result.length; i++) {
+                                        xixixi += `\n─────────────────\n\n• *Judul* : ${result[i].name}\n• *Rating* : ${result[i].rating}\n• *Status* : ${result[i].status}\n• *Link* : ${result[i].url}\n`
+                                    }
+                                    await client.reply(from, xixixi, id)
+                                } catch (err) {
+                                        console.log(err)
+                                        client.reply(from, 'Terjadi Kesalahan Dalam Pengambilan Data!', id)
+                                        client.sendText(ownerNumber, 'Ongoing Error : ' + err)
+                                }}
+                            break
+				
                     case 'memes':
                         const randmeme = await meme.random()
                         client.sendFileFromUrl(from, randmeme.url, '', randmeme.title, id)
