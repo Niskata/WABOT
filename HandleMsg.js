@@ -361,6 +361,20 @@ const HandleMsg = async (client, message, browser) => {
                         console.log(`Banchat ${name}!`)
                         await client.sendSeen(from)
                         break
+		   case 'listbanned':
+                            let bened = `This is list of banned number\nTotal : ${banned.length}\n`
+                            for (let i of banned) {
+                                bened += `➸ ${i.replace(/@c.us/g,'')}\n`
+                            }
+                            await client.reply(from, bened, id)
+                            break
+                    case 'listblock':
+                            let hih = `This is list of blocked number\nTotal : ${blockNumber.length}\n`
+                            for (let i of blockNumber) {
+                                hih += `➸ ${i.replace(/@c.us/g,'')}\n`
+                            }
+                            await client.reply(from, hih, id)
+                            break
                     // Menu and TnC
                     case 'tnc':
                         await client.sendText(from, menuId.textTnC())
