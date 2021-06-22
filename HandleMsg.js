@@ -861,7 +861,24 @@ const HandleMsg = async (client, message, browser) => {
                         }
                         break
                     }
-
+                    case 'ytsearch': {
+                            try {
+                                const response2 = await fetch(`http://zekais-api.herokuapp.com/yts?query=${body.slice(10)}`)
+                                if (!response2.ok) throw new Error(`unexpected response ${response2.statusText}`)
+                                const jsonserc = await response2.json()
+                                const { result } = await jsonserc
+                                let xixixi = `*「 YOUTUBE SEARCH 」*\n\n*Hasil Pencarian : ${body.slice(10)}*\n`
+                                for (let i = 0; i < result.length; i++) {
+                                    xixixi += `\n─────────────────\n\n• *Judul* : ${result[i].title}\n• *Ditonton* : ${result[i].views}\n• *Durasi* : ${result[i].durasi}\n• *Channel* : ${result[i].channel}\n• *URL* : ${result[i].url}\n`
+                                }
+                                await client.sendFileFromUrl(from, result[0].image, 'thumbserc.jpg', xixixi, id)
+                            } catch (err) {
+                                    console.log(err)
+                                    client.reply(from, 'Terjadi Kesalahan Dalam Pengambilan Data!', id)
+                                    client.sendText(ownerNumber, 'YT Search Error : ' + err)
+                            }
+                            break
+                    }
                     case 'play': {//silahkan kalian custom sendiri jika ada yang ingin diubah
                         if (args.length == 0) return client.reply(from, `Untuk mencari lagu dari youtube\n\nPenggunaan: ${prefix}play <judul lagu>\nContoh: ${prefix}play radioactive but im waking up`, id)
                         let ytresult = await api.ytsearch(arg).catch(err => {
