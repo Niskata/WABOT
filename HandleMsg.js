@@ -1379,9 +1379,9 @@ const HandleMsg = async (client, message, browser) => {
                             })}
                             break
                     case 'anime':
-                        if (args.length == 0) return client.reply(from, `Untuk menggunakan ${prefix}anime\nSilahkan ketik: ${prefix}anime [query]\nContoh: ${prefix}anime random\n\nquery yang tersedia:\nloli, waifu, husbu, neko`, id)
-                        if (args[0] === 'loli' || args[0] === 'husbu' || args[0] === 'neko' ||args[0] === 'waifu') {
-                            client.sendFileFromUrl(from, `https://fxc7-api.herokuapp.com/api/anime/${args[0]}?apikey=Fxc7`, `Anime.jpg`, '', id).catch(e => {
+                        if (args.length == 0) return client.reply(from, `Untuk menggunakan ${prefix}anime\nSilahkan ketik: ${prefix}anime [query]\nContoh: ${prefix}anime random\n\nquery yang tersedia:\nwaifus, milf, loli, mecha, ongoing`, id)
+                        if (args[0] === 'waifus' || args[0] === 'loli' || args[0] === 'milf' || args[0] === 'mecha') {
+                            client.sendFileFromUrl(from, `https://zenzapi.xyz/api/random/${args[0]}?apikey=60c9d613ff6c`, 'Anime.jpg', `${args[0]}`, id).catch(e => {
                                 console.log(`Anime ${args[0]} err : ${e}`)
                                 return client.sendText(from, 'Mungkin Sedang Dalam Perbaikan', id)
                             })}else if (args[0] === 'ongoing') {
