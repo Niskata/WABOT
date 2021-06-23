@@ -236,6 +236,7 @@ const HandleMsg = async (client, message, browser) => {
             })
         }
         else if (isBanned && isCmd) {
+	    await client.sendText(from, `Maaf anda telah dibanned oleh bot karena melanggar TnC.\nSilakan chat owner untuk unban.`, id)
             return console.log(color('[BANd]', 'red'), color(moment(t * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), color(`${command}[${args.length}]`), 'from', color(pushname), 'in', color(name || formattedTitle))
         }
         else if (isBanned) return null
