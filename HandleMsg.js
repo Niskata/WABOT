@@ -348,7 +348,7 @@ const HandleMsg = async (client, message, browser) => {
                     // Menu and TnC
                     case 'banchat':
                         if (setting.banChats === true) return
-                        if (!isOwnerBot) return client.reply(from, 'Perintah ini hanya bisa di gunakan oleh Owner Elaina!', id)
+                        if (!isOwnerBot) return client.reply(from, 'Perintah ini hanya bisa di gunakan oleh Owner Renge!', id)
                         setting.banChats = true
                         banChats = true
                         fs.writeFileSync('./settings/setting.json', JSON.stringify(setting, null, 2))
@@ -918,6 +918,23 @@ const HandleMsg = async (client, message, browser) => {
                     }
 
                     //Media
+                    case 'ytmp3s':
+                        if (args.length === 0) return client.reply(from, `Kirim perintah *${prefix}ytmp3s [ Link Yt ]*, untuk contoh silahkan kirim perintah *${prefix}readme*`, id)
+                        if (arg.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/) === null) return client.reply(from, `Link youtube tidak valid.`, id)
+                        try {
+                            const serp2 = body.slice(7)
+                            const webplays = await axios.get(`https://api.zeks.xyz/api/ytmp3/2?apikey=apivinz&url=${serp2}`)
+                              if (webplays.status == false) {
+                              client.reply(from, `*Maaf Terdapat kesalahan saat mengambil data, mohon pilih media lain...*`, id)
+                                } else {
+                        const { title, link } = await webplays.data.result
+                        await client.sendFileFromUrl(from, link, `${title}.mp3`, '')
+                        console.log(color(`Audio processed for ${processTime(t, moment())} seconds`, 'aqua'))
+                        }} catch (err) {
+                            client.sendText(ownerNumber, 'Error YTMP3S : '+ err)
+                            client.reply(from, 'Jangan meminta lagu yang sama dengan sebelumnya!', id)
+                        }
+                        break
                     case 'ytmp3': {
                     if (args.length == 0) return client.reply(from, `Untuk mendownload audio dari youtube\nketik: ${prefix}ytmp3 <link yt> (don't include <> symbol)`, id)
                     if (arg.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/) === null) return client.reply(from, `Link youtube tidak valid.`, id)                    await client.sendText(resMsg.wait)
