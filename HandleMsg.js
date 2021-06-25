@@ -224,7 +224,7 @@ const {
 
 const fs = require('fs-extra')
 const { uploadImages } = require('./utils/fetcher')
-
+const errorImg = 'https://i.ibb.co/jRCpLfn/user.png'
 const setting = JSON.parse(createReadFileSync('./settings/setting.json'))
 const kataKasar = JSON.parse(createReadFileSync('./settings/katakasar.json'))
 const { apiNoBg } = JSON.parse(createReadFileSync('./settings/api.json'))
