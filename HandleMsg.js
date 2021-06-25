@@ -4,6 +4,7 @@ const { translate } = require('free-translate')
 const appRoot = require('app-root-path')
 const FileSync = require('lowdb/adapters/FileSync')
 const db_group = new FileSync(appRoot + '/data/denda.json')
+const canvas = require('canvacord')
 const moment = require('moment-timezone')
 const ffmpeg = require('fluent-ffmpeg')
 const ytdl = require('ytdl-core')
@@ -38,6 +39,172 @@ let {
     api
 } = require('./lib')
 
+//----------- LEVEL -----------//
+
+/**
+ * Get user ID from db.
+ * @param {string} userId 
+ * @param {object} _dir 
+ * @returns {string}
+ */
+ const getLevelingId = (userId, _dir) => {
+    let pos = null
+    let found = false
+    Object.keys(_dir).forEach((i) => {
+        if (_dir[i].id === userId) {
+            pos = i
+            found = true
+        }
+    })
+    if (found === false && pos === null) {
+        const obj = { id: userId, xp: 0, level: 1 }
+        _dir.push(obj)
+        fs.writeFileSync('./data/level.json', JSON.stringify(_dir))
+        return userId
+    } else {
+        return _dir[pos].id
+    }
+} 
+
+/**
+ * Get user level from db.
+ * @param {string} userId 
+ * @param {object} _dir 
+ * @returns {number}
+ */
+const getLevelingLevel = (userId, _dir) => {
+    let pos = null
+    let found = false
+    Object.keys(_dir).forEach((i) => {
+        if (_dir[i].id === userId) {
+            pos = i
+            found = true
+        }
+    })
+    if (found === false && pos === null) {
+        const obj = { id: userId, xp: 0, level: 1 }
+        _dir.push(obj)
+        fs.writeFileSync('./data/level.json', JSON.stringify(_dir))
+        return 1
+    } else {
+        return _dir[pos].level
+    }
+}
+
+/**
+ * Get user XP from db.
+ * @param {string} userId 
+ * @param {object} _dir 
+ * @returns {number}
+ */
+const getLevelingXp = (userId, _dir) => {
+    let pos = null
+    let found = false
+    Object.keys(_dir).forEach((i) => {
+        if (_dir[i].id === userId) {
+            pos = i
+            found = true
+        }
+    })
+    if (found === false && pos === null) {
+        const obj = { id: userId, xp: 0, level: 1 }
+        _dir.push(obj)
+        fs.writeFileSync('./data/level.json', JSON.stringify(_dir))
+        return 0
+    } else {
+        return _dir[pos].xp
+    }
+}
+
+/**
+ * Add user level to db.
+ * @param {string} userId 
+ * @param {number} amount 
+ * @param {object} _dir 
+ */
+const addLevelingLevel = (userId, amount, _dir) => {
+    let position = null
+    Object.keys(_dir).forEach((i) => {
+        if (_dir[i].id === userId) {
+            position = i
+        }
+    })
+    if (position !== null) {
+        _dir[position].level += amount
+        fs.writeFileSync('./data/level.json', JSON.stringify(_dir))
+    }
+}
+
+/**
+ * Add user XP to db.
+ * @param {string} userId 
+ * @param {number} amount 
+ * @param {object} _dir 
+ */
+const addLevelingXp = (userId, amount, _dir) => {
+    let position = null
+    Object.keys(_dir).forEach((i) => {
+        if (_dir[i].id === userId) {
+            position = i
+        }
+    })
+    if (position !== null) {
+        _dir[position].xp += amount
+        fs.writeFileSync('./data/level.json', JSON.stringify(_dir))
+    }
+}
+
+/**
+ * Get user rank.
+ * @param {string} userId 
+ * @param {object} _dir 
+ * @returns {number}
+ */
+const getUserRank = (userId, _dir) => {
+    let position = null
+    let found = false
+    _dir.sort((a, b) => (a.xp < b.xp) ? 1 : -1)
+    Object.keys(_dir).forEach((i) => {
+        if (_dir[i].id === userId) {
+            position = i
+            found = true
+        }
+    })
+    if (found === false && position === null) {
+        const obj = { id: userId, xp: 0, level: 1 }
+        _dir.push(obj)
+        fs.writeFileSync('./data/level.json', JSON.stringify(_dir))
+        return 99
+    } else {
+        return position + 1
+    }
+}
+
+// Cooldown XP gains to prevent spam
+const xpGain = new Set()
+
+/**
+ * Check is user exist in set.
+ * @param {string} userId 
+ * @returns {boolean}
+ */
+const isGained = (userId) => {
+    return !!xpGain.has(userId)
+}
+
+/**
+ * Add user in set and delete it when it's 1 minute.
+ * @param {string} userId 
+ */
+const addCooldown = (userId) => {
+    xpGain.add(userId)
+    setTimeout(() => {
+        return xpGain.delete(userId)
+    }, 60000) // Each minute
+}
+
+//----------- END -----------//
+
 function requireUncached(module) {
     delete require.cache[require.resolve(module)]
     return require(module)
@@ -66,6 +233,8 @@ const ngegas = JSON.parse(createReadFileSync('./data/ngegas.json'))
 const welcome = JSON.parse(createReadFileSync('./data/welcome.json'))
 const antiLinkGroup = JSON.parse(createReadFileSync('./data/antilinkgroup.json'))
 const muted = JSON.parse(fs.readFileSync('./settings/muted.json'))
+const _level = JSON.parse(fs.readFileSync('./data/level.json'))
+const _leveling = JSON.parse(fs.readFileSync('./data/leveling.json'))
 
 const readMore = '͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏' //its 2000 characters so that makes whatsapp add 'readmore' button
 
@@ -180,6 +349,7 @@ const HandleMsg = async (client, message, browser) => {
         const botNumber = await client.getHostNumber() + '@c.us'
         const groupId = isGroupMsg ? chat.groupMetadata.id : ''
         const groupAdmins = isGroupMsg ? await client.getGroupAdmins(groupId) : ''
+	const isLevelingOn = isGroupMsg ? _leveling.includes(groupId) : false
 
         if (type === 'chat') var chats = body
         else var chats = (type === 'image' || type === 'video') ? caption : ''
@@ -228,6 +398,70 @@ const HandleMsg = async (client, message, browser) => {
         const sfx = fs.readdirSync('./random/sfx/').map(item => {
             return item.replace('.mp3', '')
         })
+	
+	// ------ Rank Level ------\\
+        const levelRole = await getLevelingLevel(sender.id, _level)
+        var role = 'Copper V'
+        if (levelRole >= 5) {
+            role = 'Copper IV'
+        } else if (levelRole >= 10) {
+            role = 'Copper III'
+        } else if (levelRole >= 15) {
+            role = 'Copper II'
+        } else if (levelRole >= 20) {
+            role = 'Copper I'
+        } else if (levelRole >= 25) {
+            role = 'Silver V'
+        } else if (levelRole >= 30) {
+            role = 'Silver IV'
+        } else if (levelRole >= 35) {
+            role = 'Silver III'
+        } else if (levelRole >= 40) {
+            role = 'Silver II'
+        } else if (levelRole >= 45) {
+            role = 'Silver I'
+        } else if (levelRole >= 50) {
+            role = 'Gold V'
+        } else if (levelRole >= 55) {
+            role = 'Gold IV'
+        } else if (levelRole >= 60) {
+            role = 'Gold III'
+        } else if (levelRole >= 65) {
+            role = 'Gold II'
+        } else if (levelRole >= 70) {
+            role = 'Gold I'
+        } else if (levelRole >= 75) {
+            role = 'Platinum V'
+        } else if (levelRole >= 80) {
+            role = 'Platinum IV'
+        } else if (levelRole >= 85) {
+            role = 'Platinum III'
+        } else if (levelRole >= 90) {
+            role = 'Platinum II'
+        } else if (levelRole >= 95) {
+            role = 'Platinum I'
+        } else if (levelRole > 100) {
+            role = 'Exterminator'
+        }
+
+        // Leveling [BETA] by Slavyan
+        if (isGroupMsg && !isGained(sender.id) && !isBanned && isLevelingOn) {
+            try {
+                addCooldown(sender.id)
+                const currentLevel = getLevelingLevel(sender.id, _level)
+                const amountXp = Math.floor(Math.random() * (15 - 25 + 1) + 15)
+                const requiredXp = 5 * Math.pow(currentLevel, 2) + 50 * currentLevel + 100
+                addLevelingXp(sender.id, amountXp, _level)
+                if (requiredXp <= getLevelingXp(sender.id, _level)) {
+                    addLevelingLevel(sender.id, 1, _level)
+                    const userLevel = getLevelingLevel(sender.id, _level)
+                    const fetchXp = 5 * Math.pow(userLevel, 2) + 50 * userLevel + 100
+                    await client.reply(from, `*── 「 LEVEL UP 」 ──*\n\n➸ *Name*: ${pushname}\n➸ *XP*: ${getLevelingXp(sender.id, _level)} / ${fetchXp}\n➸ *Level*: ${currentLevel} -> ${getLevelingLevel(sender.id, _level)} 🆙 \n➸ *Role*: *${role}*`, id)
+                }
+            } catch (err) {
+                console.error(err)
+            }
+        }
 
         // Filter Banned People
         if (isBanned && !isGroupMsg && isCmd) {
@@ -427,6 +661,98 @@ const HandleMsg = async (client, message, browser) => {
                                     await client.reply(from, 'Gagal! Sepertinya Bot pernah dikick dari group itu ya? Yah, Bot gabisa masuk lagi dong', id)
                                 })
                         }
+                        break
+			case 'level':
+                            if (!isLevelingOn) return client.reply(from, 'Fitur leveling belum diaktifkan!', id)
+                            if (!isGroupMsg) return client.reply(from, resMsg.error.group, id)
+                            const userLevel = getLevelingLevel(sender.id, _level)
+                            const userXp = getLevelingXp(sender.id, _level)
+                            const ppLink = await client.getProfilePicFromServer(sender.id)
+                            if (ppLink === undefined) {
+                                var pepe = errorImg
+                            } else {
+                                pepe = ppLink
+                            }
+                            const requiredXp = 5 * Math.pow(userLevel, 2) + 50 * userLevel + 100
+                            const rank = new canvas.Rank()
+                                .setAvatar(pepe)
+                                .setLevel(userLevel)
+                                .setLevelColor('#ffa200', '#ffa200')
+                                .setRank(Number(getUserRank(sender.id, _level)))
+                                .setCurrentXP(userXp)
+                                .setOverlay('#000000', 100, false)
+                                .setRequiredXP(requiredXp)
+                                .setProgressBar('#ffa200', 'COLOR')
+                                .setBackground('COLOR', '#000000')
+                                .setUsername(pushname)
+                                .setDiscriminator(sender.id.substring(6, 10))
+                            rank.build()
+                                .then(async (buffer) => {
+                                    const imageBase64 = `data:image/png;base64,${buffer.toString('base64')}`
+                                    await client.sendImage(from, imageBase64, 'rank.png', '', id)
+                                })
+                                .catch(async (err) => {
+                                    console.error(err)
+                                    await client.reply(from, 'Error!', id)
+                                })
+                        break
+                        case 'leaderboard':
+                            if (!isLevelingOn) return client.reply(from, 'Fitur leveling belum diaktifkan!', id)
+                            if (!isGroupMsg) return await client.reply(from. resMsg.error.group, id)
+                            const respa = _level
+                            _level.sort((a, b) => (a.xp < b.xp) ? 1 : -1)
+                            let leaderboard = '*── 「 LEADERBOARDS 」 ──*\n\n'
+                            try {
+                                for (let i = 0; i < 10; i++) {
+                                    var roles = 'Copper V'
+                                    if (respa[i].level >= 5) {
+                                        roles = 'Copper IV'
+                                    } else if (respa[i].level >= 10) {
+                                        roles = 'Copper III'
+                                    } else if (respa[i].level >= 15) {
+                                        roles = 'Copper II'
+                                    } else if (respa[i].level >= 20) {
+                                        roles = 'Copper I'
+                                    } else if (respa[i].level >= 25) {
+                                        roles = 'Silver V'
+                                    } else if (respa[i].level >= 30) {
+                                        roles = 'Silver IV'
+                                    } else if (respa[i].level >= 35) {
+                                        roles = 'Silver III'
+                                    } else if (respa[i].level >= 40) {
+                                        roles = 'Silver II'
+                                    } else if (respa[i].level >= 45) {
+                                        roles = 'Silver I'
+                                    } else if (respa[i].level >= 50) {
+                                        roles = 'Gold V'
+                                    } else if (respa[i].level >= 55) {
+                                        roles = 'Gold IV'
+                                    } else if (respa[i].level >= 60) {
+                                        roles = 'Gold III'
+                                    } else if (respa[i].level >= 65) {
+                                        roles = 'Gold II'
+                                    } else if (respa[i].level >= 70) {
+                                        roles = 'Gold I'
+                                    } else if (respa[i].level >= 75) {
+                                        roles = 'Platinum V'
+                                    } else if (respa[i].level >= 80) {
+                                        roles = 'Platinum IV'
+                                    } else if (respa[i].level >= 85) {
+                                        roles = 'Platinum III'
+                                    } else if (respa[i].level >= 90) {
+                                        roles = 'Platinum II'
+                                    } else if (respa[i].level >= 95) {
+                                        roles = 'Platinum I'
+                                    } else if (respa[i].level > 100) {
+                                        roles = 'Exterminator'
+                                    }
+                                    leaderboard += `${i + 1}. wa.me/${_level[i].id.replace('@c.us', '')}\n➸ *XP*: ${_level[i].xp} *Level*: ${_level[i].level}\n➸ *Role*: ${roles}\n\n`
+                                }
+                                await client.reply(from, leaderboard, id)
+                            } catch (err) {
+                                console.error(err)
+                                await client.reply(from, `Perlu setidaknya *10* user yang memiliki level di database!`, id)
+                            }
                         break
                     case 'stat':
                     case 'status':
