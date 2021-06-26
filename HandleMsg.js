@@ -663,6 +663,22 @@ const HandleMsg = async (client, message, browser) => {
                                 })
                         }
                         break
+			case 'leveling':
+                            if (!isGroupMsg) return await client.reply(from, resMsg.error.group, id)
+                            if (!isGroupAdmins) return await client.reply(from, resMsg.error.admin, id)
+                            if (args[0] === 'on') {
+                                if (isLevelingOn) return await client.reply(from, `Fitur leveling telah diaktifkan sebelumnya.`, id)
+                                _leveling.push(groupId)
+                                fs.writeFileSync('./data/leveling.json', JSON.stringify(_leveling))
+                                await client.reply(from, 'Fitur leveling berhasil *diaktifkan*!', id)
+                            } else if (args[0] === 'off') {
+                                _leveling.splice(groupId, 1)
+                                fs.writeFileSync('./data/leveling.json', JSON.stringify(_leveling))
+                                await client.reply(from, `Fitur leveling berhasil *dinonaktifkan*!`, id)
+                            } else {
+                                await client.reply(from, `Untuk mengaktifkan Fitur leveling menggunaan\n${prefix}leveling on --mengaktifkan\n${prefix}leveling off --nonaktifkan`, id)
+                            }
+                        break
 			case 'level':
                             if (!isLevelingOn) return client.reply(from, 'Fitur leveling belum diaktifkan!', id)
                             if (!isGroupMsg) return client.reply(from, resMsg.error.group, id)
