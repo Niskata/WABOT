@@ -542,7 +542,7 @@ const HandleMsg = async (client, message, browser) => {
         if (message.mentionedJidList && message.mentionedJidList.includes(botNumber)) client.reply(from, `Iya, ada apa?`, id)
 
         // Ini Command nya
-	if (!isCmd) { 
+	if (isCmd) { 
         if(body === '#mute' && isMuted(chatId) == true){
                 if(isGroupMsg) {
                     if (!isGroupAdmins) return client.reply(from, 'Maaf, perintah ini hanya dapat dilakukan oleh admin!', id)
