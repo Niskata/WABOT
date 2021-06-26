@@ -542,6 +542,7 @@ const HandleMsg = async (client, message, browser) => {
         if (message.mentionedJidList && message.mentionedJidList.includes(botNumber)) client.reply(from, `Iya, ada apa?`, id)
 
         // Ini Command nya
+	if (!isCmd) { 
         if(body === '#mute' && isMuted(chatId) == true){
                 if(isGroupMsg) {
                     if (!isGroupAdmins) return client.reply(from, 'Maaf, perintah ini hanya dapat dilakukan oleh admin!', id)
@@ -1248,6 +1249,7 @@ const HandleMsg = async (client, message, browser) => {
                         if (args.length === 0) return client.reply(from, `Kirim perintah *${prefix}ytmp3s [ Link Yt ]*, untuk contoh silahkan kirim perintah *${prefix}readme*`, id)
                         if (arg.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/) === null) return client.reply(from, `Link youtube tidak valid.`, id)
                         try {
+			    await client.sendText(resMsg.wait)
                             const serp2 = body.slice(7)
                             const webplays = await axios.get(`https://api.zeks.xyz/api/ytmp3/2?apikey=apivinz&url=${serp2}`)
                               if (webplays.status == false) {
@@ -1263,9 +1265,10 @@ const HandleMsg = async (client, message, browser) => {
                         break
                     case 'ytmp3': {
                     if (args.length == 0) return client.reply(from, `Untuk mendownload audio dari youtube\nketik: ${prefix}ytmp3 <link yt> (don't include <> symbol)`, id)
-                    if (arg.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/) === null) return client.reply(from, `Link youtube tidak valid.`, id)                    await client.sendText(resMsg.wait)
+                    if (arg.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/) === null) return client.reply(from, `Link youtube tidak valid.`, id)
                     let ytid = args[0].substr((args[0].indexOf('=')) != -1 ? (args[0].indexOf('=') + 1) : (args[0].indexOf('be/') + 3))
                     try {
+			await client.sendText(resMsg.wait)
                         ytid = ytid.replace(/&.+/g, '')
                         let time = moment(t * 1000).format('mmss')
                         let path = `./media/temp_${time}.mp3`
