@@ -763,14 +763,15 @@ const HandleMsg = async (client, message, browser) => {
                                     } else if (respa[i].level > 100) {
                                         roles = 'Exterminator'
                                     }
-                                    leaderboard += `${i + 1}. ${_level[i].id.replace('@c.us', '')}\n➸ *XP*: ${_level[i].xp} *Level*: ${_level[i].level}\n➸ *Role*: ${roles}\n\n`
+                                    leaderboard += `${i + 1}. @${_level[i].id.replace('@c.us', '')}\n➸ *XP*: ${_level[i].xp} *Level*: ${_level[i].level}\n➸ *Role*: ${roles}\n\n`
                                 }
-                                await client.seb(from, leaderboard, id)
+                                await client.sendTextWithMentions(from, leaderboard, id)
                             } catch (err) {
                                 console.error(err)
-                                await client.sendTextWithMentions(from, `Perlu setidaknya *10* user yang memiliki level di database!`, id)
+                                await client.reply(from, `Perlu setidaknya *10* user yang memiliki level di database!`, id)
                             }
                         break
+
                     case 'stat':
                     case 'status':
                     case 'botstat': {
