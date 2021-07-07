@@ -1841,13 +1841,15 @@ const HandleMsg = async (client, message, browser) => {
                     case 'reddit':
                     case 'subreddit':
                     case 'sreddit': {
+			try {
                         if (args.length == 0) return client.reply(from, `Untuk mencari gambar dari sub reddit\nketik: ${prefix}sreddit [search]\ncontoh: ${prefix}sreddit naruto`, id)
                         const hasilreddit = await api.sreddit(arg)
                         await client.sendFileFromUrl(from, hasilreddit.url, '', hasilreddit.title, id)
-                            .catch((e) => {
-                                console.log(e)
-                                client.reply(from, resMsg.error.norm, id)
-                            })
+			} catch (err) {
+                            client.sendText(ownerNumber, 'Error Subreddit : '+ err)
+                            client.reply(from, 'Jangan meminta lagu yang sama dengan sebelumnya!', id)
+                        }
+                            
                         break
                     }
 
