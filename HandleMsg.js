@@ -238,6 +238,55 @@ const _leveling = JSON.parse(fs.readFileSync('./data/leveling.json'))
 
 const readMore = '͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏' //its 2000 characters so that makes whatsapp add 'readmore' button
 
+        const sendText = async (txt) => {
+            return client.sendText(from, txt)
+                .catch(e => {
+                    console.log(e)
+                })
+        }
+
+        const reply = async (txt, qId = id) => {
+            return client.reply(from, txt, qId)
+                .catch(e => {
+                    console.log(e)
+                })
+        }
+
+        const printError = (e, sendToOwner = true, sendError = true) => {
+            if (sendError) sendText(resMsg.error.norm)
+            let errMsg = `${e.name} ${e.message}`
+            let cropErr = errMsg.length > 100 ? errMsg.substr(0, 100) + '...' : errMsg
+            console.log(color('[ERR>]', 'red'), "{ " + croppedChats + " }\n", e)
+            if (sendToOwner) client.sendText(ownerNumber, `{ ${chats} }\n${cropErr}`)
+            return null
+        }
+
+        const sendFFU = async (url, capt = '') => {
+            sendText(resMsg.wait)
+            if (!capt) capt = ''
+            return client.sendFileFromUrl(from, url, '', capt, id)
+                .catch(e => { return printError(e) })
+        }
+
+        const sendSFU = async (url, sendWait = true) => {
+            if (sendWait) sendText(resMsg.wait)
+            return client.sendStickerfromUrl(from, url, null, stickerMetadata).then((r) => (!r && r != undefined)
+                ? sendText('Maaf, link yang kamu kirim tidak memuat gambar.')
+                : sendText(resMsg.success.sticker)).then(() => console.log(color('[LOGS]', 'grey'), `Sticker Processed for ${processTime(t, moment())} Seconds`))
+        }
+
+        const sendJSON = (txt) => sendText(JSON.stringify(txt, null, 2))
+
+        // eslint-disable-next-line no-unused-vars
+        const sendJFU = async (url) => {
+            try {
+                let { data } = await get(url)
+                return data && sendJSON(data)
+            } catch (e) {
+                sendText(e.toString())
+            }
+        }
+
 let {
     ownerNumber,
     memberLimit,
@@ -1570,31 +1619,48 @@ const HandleMsg = async (client, message, browser) => {
                         break
                     }
 
-                    case 'tiktok': {
-                        return client.reply(from, `Maaf fitur sedang dalam perbaikan`, id)
-
-                        // if (args.length === 0 && !isQuotedChat) return client.reply(from, `Download Tiktok no watermark. How?\n${prefix}tiktok <url>\nTanpa simbol <>`, id)
-                        // let urls = isQuotedChat ? quotedMsg.body : arg
-                        // if (!isUrl(urls)) { return client.reply(from, 'Maaf, link yang kamu kirim tidak valid.', id) }
-                        // await client.reply(from, resMsg.wait, id)
-                        // let result = await tiktok.ssstik(urls).catch(err => client.reply(from, resMsg.error.norm, id).then(() => console.log(err)))
-                        // let _id = quotedMsg != null ? quotedMsg.id : id
-                        // await client.sendFileFromUrl(from, result.videonowm2, '', '', _id).catch(err => client.reply(from, resMsg.error.norm, id).then(() => console.log(err)))
-                        // break
-                    }
-
-                    case 'tiktokmp3': {
-                        return client.reply(from, `Maaf fitur sedang dalam perbaikan`, id)
-
-                        // if (args.length === 0 && !isQuotedChat) return client.reply(from, `Download Tiktok music/mp3. How?\n${prefix}tiktokmp3 <url>\nTanpa simbol <>`, id)
-                        // let urls = isQuotedChat ? quotedMsg.body : arg
-                        // if (!isUrl(urls)) { return client.reply(from, 'Maaf, link yang kamu kirim tidak valid.', id) }
-                        // await client.reply(from, resMsg.wait, id)
-                        // let result = await tiktok.ssstik(urls).catch(err => client.reply(from, resMsg.error.norm, id).then(() => console.log(err)))
-                        // let _id = quotedMsg != null ? quotedMsg.id : id
-                        // await client.sendFileFromUrl(from, result.music, '', '', _id).catch(err => client.reply(from, resMsg.error.norm, id).then(() => console.log(err)))
-                        // break
-                    }
+                    case 'tiktok': case 'tt':
+                        case 'tiktok1': case 'tt1':
+                        case 'tiktok2': case 'tt2':
+                        case 'tiktok3': case 'tt3': {
+                            if (args.length === 0 && !isQuotedChat) return client.reply(`Download Tiktok tanpa watermark. Bagaimana caranya?\nTinggal ketik ${prefix}tiktok (alamat video tiktok)\nTanpa tanda kurung`)
+                            let urls = isQuotedChat ? quotedMsg.body : arg
+                            if (!isUrl(urls)) { return client.reply('Maaf, link yang kamu kirim tidak valid.') }
+                            await client.sendText(resMsg.wait)
+        
+                            let result = await scraper.snaptik(browser, urls).catch(err => {
+                                console.log(err)
+                                return client.reply(resMsg.error.norm + `\nGunakan *${prefix}tiktok1 ${prefix}tiktok2* atau *${prefix}tiktok3* untuk mencoba server lain`)
+                            })
+                            let _id = quotedMsg != null ? quotedMsg.id : id
+                            let _mp4Url = result?.source
+                            if (command.endsWith('1')) _mp4Url = result?.server1
+                            if (command.endsWith('2')) _mp4Url = result?.server2
+                            if (command.endsWith('3')) {
+                                let ress = await scraper.ssstik(browser, urls).catch(e => { return printError(e) })
+                                _mp4Url = ress?.mp4
+                            }
+                            if (_mp4Url != undefined) {
+                                client.sendFileFromUrl(from, _mp4Url, '', '', _id).catch(err => {
+                                    console.log(err)
+                                    return client.reply(resMsg.error.norm + `\nGunakan *${prefix}tiktok1 ${prefix}tiktok2* atau *${prefix}tiktok3* untuk mencoba server lain`)
+                                })
+                            }
+                            break
+                        }
+        
+                        case 'tiktokmp3':
+                        case 'ttmp3': {
+                            if (args.length === 0 && !isQuotedChat) return reply(`Download Tiktok music/mp3. How?\n${prefix}tiktokmp3 (alamat video Tiktok)\nTanpa tanda kurung`)
+                            let urls = isQuotedChat ? quotedMsg.body : arg
+                            if (!isUrl(urls)) { return client.reply('Maaf, link yang kamu kirim tidak valid.') }
+                            client.sendText(resMsg.wait)
+                            let result = await scraper.qload(urls).catch(e => { return printError(e) })
+                            let _id = quotedMsg != null ? quotedMsg.id : id
+                            if (result.mp3) client.sendFileFromUrl(from, result.mp3, '', '', _id).catch(e => { return printError(e) })
+                            else client.reply('Maaf, link yang kamu kirim tidak valid.')
+                            break
+                        }
 
                     case 'artinama':
                         if (args.length == 0) return client.reply(from, `Untuk mengetahui arti nama seseorang\nketik ${prefix}artinama nama kamu`, id)
