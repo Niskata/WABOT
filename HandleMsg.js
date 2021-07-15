@@ -398,6 +398,9 @@ const HandleMsg = async (client, message, browser) => {
         const sfx = fs.readdirSync('./random/sfx/').map(item => {
             return item.replace('.mp3', '')
         })
+        const genshin = fs.readdirSync('./random/buildgi/').map(item => {
+            return item.replace('.jpeg', '')
+        })
 	
 	// ------ Rank Level ------\\
         const levelRole = await getLevelingLevel(sender.id, _level)
@@ -1368,100 +1371,11 @@ const HandleMsg = async (client, message, browser) => {
             break 	            
             }
                     case 'buildgi': {
-                        if (!isGroupMsg) return client.reply(from, 'Perintah ini hanya bisa digunakan dalam grup', id)
+ 			if (!isGroupMsg) return client.reply(from, 'Perintah ini hanya bisa digunakan dalam grup', id)
                         if (args.length === 0) return client.reply(from, 'Masukkan nama characternya contoh #genshin keqing', id)
-                        if (args[0] === 'ningguang') {
-                           await client.sendFileFromUrl(from, `https://pbs.twimg.com/media/Em-fPLbXIAMeGHs.jpg`, 'ningguang.jpg', 'NINGGUANG')
-                        }
-                        else if (args[0] === 'eula') {
-                            await client.sendFileFromUrl(from, `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRenIHog_Y7-RaY9xWmApOBXDHsnmp0GPfxBA&usqp=CAU`, 'eula.jpg', 'EULA')
-                        }
-                        else if (args[0] === 'qiqi') {
-                            await client.sendFileFromUrl(from, `https://i.pinimg.com/originals/a6/30/72/a630722d0b892f3726a8d6f5305a8d51.jpg`, 'qiqi.jpg', 'QIQI')
-                        }
-                        else if (args[0] === 'bennett') {
-                            await client.sendFileFromUrl(from, `https://i.pinimg.com/originals/6f/45/f0/6f45f0c3a9fb25279dc8d27d91e68e04.jpg`, 'bennett.jpg', 'BENNETT')
-                        }
-                        else if (args[0] === 'ganyu') {
-                            await client.sendFileFromUrl(from, `https://pbs.twimg.com/media/Erj5aqWXUAQWZoK.jpg`, 'ganyu.jpg', 'GANYU')
-                        }
-                        else if (args[0] === 'diluc') {
-                            await client.sendFileFromUrl(from, `https://pbs.twimg.com/media/EnSynS8W4AQH58E.jpg`, 'Diluc.jpg', 'DILUC')
-                        }
-                        else if (args[0] === 'hutao') {
-                            await client.sendFileFromUrl(from, `https://upload-os-bbs.mihoyo.com/upload/2021/03/05/63355475/6c6e0880deecb8724eb5782ce2abe326_7391460892029173849.png`, 'hutao.jpg', 'HUTAO')
-                        }
-                        else if (args[0] === 'klee') {
-                            await client.sendFileFromUrl(from, `https://pbs.twimg.com/media/EnGJHUAXMAIuzKD.jpg`, 'klee.jpg', 'KLEE')
-                        }
-                        else if (args[0] === 'mona') {
-                            await client.sendFileFromUrl(from, `https://i.pinimg.com/originals/b1/0b/4f/b10b4f74c40df78d86ffad813bf19b11.jpg`, 'mona.jpg', 'MONA')
-                        }
-                        else if (args[0] === 'childe') {
-                            await client.sendFileFromUrl(from, `https://pbs.twimg.com/media/Emtc2HBXYAMA58S.jpg`, 'childe.jpg', 'CHILDE')
-                        }
-                        else if (args[0] === 'venti') {
-                            await client.sendFileFromUrl(from, `https://pbs.twimg.com/media/EnojhCpXcAAAgeW.jpg`, 'venti.jpg', 'VENTI')
-                        }
-                        else if (args[0] === 'xiao') {
-                            await client.sendFileFromUrl(from, `https://pbs.twimg.com/media/EtUpocpWgAov3gN.jpg`, 'xiao.jpg', 'XIAO')
-                        }
-                        else if (args[0] === 'xingqiu') {
-                            await client.sendFileFromUrl(from, `https://pbs.twimg.com/media/EveqXA5XEAgJW5Y.jpg`, 'xingqiu.jpg', 'XINGQIU')
-                        }
-                        else if (args[0] === 'zhongli') {
-                            await client.sendFileFromUrl(from, `https://pbs.twimg.com/media/EoREoPFW4AA1xlA.jpg`, 'zhongli.jpg', 'ZHONGLI')
-                        }
-                        else if (args[0] === 'albedo') {
-                            await client.sendFileFromUrl(from, `https://upload-os-bbs.mihoyo.com/upload/2020/12/28/63355475/47bc7b1162a21453f1220a374bf15da1_2193150447268650678.png`, 'albedo.png', 'ALBEDO')
-                        }
-                        else if (args[0] === 'diona') {
-                            await client.sendFileFromUrl(from, `https://pbs.twimg.com/media/EnJI-SiW8AEWACM.jpg`, 'diona.jpg', 'DIONA')
-                        }
-                        else if (args[0] === 'fischl') {
-                            await client.sendFileFromUrl(from, `https://staticg.sportskeeda.com/editor/2021/03/04b93-16153802018217-800.jpg`, 'fischl.jpg', 'FISCHL')
-                        }
-                        else if (args[0] === 'jean') {
-                            await client.sendFileFromUrl(from, `https://pbs.twimg.com/media/EmTrchHXEAA6IZa.jpg`, 'jean.jpg', 'JEAN')
-                        }
-                        else if (args[0] === 'keqing') {
-                            await client.sendFileFromUrl(from, `https://i.pinimg.com/originals/7d/90/b9/7d90b94f5194b74c104686287216ccee.png`, 'keqing.jpg', 'KEQING')
-                        }
-                        else if (args[0] === 'razor') {
-                            await client.sendFileFromUrl(from, `https://upload-os-bbs.mihoyo.com/upload/2020/12/11/63355475/26034e7eb14a93af1e466cb9914afa89_5399551990996542927.png`, 'razor.jpg', 'RAZOR')
-                        }
-                        else if (args[0] === 'rosaria') {
-                            await client.sendFileFromUrl(from, `https://pbs.twimg.com/media/EyjQ3V5WQAQ6rYk.jpg`, 'rosaria.jpg', 'ROSARIA')
-                        }
-                        else if (args[0] === 'sucrose') {
-                            await client.sendFileFromUrl(from, `https://pbs.twimg.com/media/EoBu7oQXUAMJjWL.jpg`, 'sucrose.jpg', 'SUCROSE')
-                        }
-                        else if (args[0] === 'xiangling') {
-                            await client.sendFileFromUrl(from, `https://upload-os-bbs.hoyolab.com/upload/2020/11/21/63355475/5dd077533466cbbdc4087e72713bf5b6_4149424357349932943.png`, 'xiangling.png', 'XIANGLING')
-                        }
-                        else if (args[0] === 'barbara') {
-                            await client.sendFileFromUrl(from, `https://pbs.twimg.com/media/Es_G80eXMAgHFq3.jpg`, 'barbara.jpg', 'BARBARA')
-                        }
-                        else if (args[0] === 'beidou') {
-                            await client.sendFileFromUrl(from, `https://pbs.twimg.com/media/EmZTPl_WMAEmikq.jpg`, 'beidou.jpg', 'BEIDOU')
-                        }
-                        else if (args[0] === 'chongyun') {
-                            await client.sendFileFromUrl(from, `https://i.pinimg.com/originals/b3/b1/cc/b3b1cce69b592c9fbb590dbe8cbc6ba3.jpg`, 'chongyun.jpg', 'CHONGYUN')
-                        }
-                        else if (args[0] === 'kaeya') {
-                            await client.sendFileFromUrl(from, `https://pbs.twimg.com/media/ErVRuSrXUAYx3It.jpg`, 'kaeya.jpg', 'KAEYA')
-                        }
-                        else if (args[0] === 'xinyan') {
-                            await client.sendFileFromUrl(from, `https://upload-os-bbs.hoyolab.com/upload/2021/01/27/63355475/8d10c6784b158bc95e0aa60918217a34_1082325582054032291.png`, 'xinyan.png', 'XINYAN')
-                        }
-                        else if (args[0] === 'lisa') {
-                            await client.sendFileFromUrl(from, `https://upload-os-bbs.hoyolab.com/upload/2021/02/13/63355475/6718b2955f0f126e717121ef971c382a_8520390941442621949.png`, 'lisa.png', 'LISA')
-                        }
-                        else if (args[0] === 'noelle') {
-                            await client.sendFileFromUrl(from, `https://pbs.twimg.com/media/Es8LXamXYAMZOVk.jpg`, 'noelle.jpg', 'NOELLE')
-                        }
-                        else if (args[0] === 'amber') {
-                            await client.sendFileFromUrl(from, `https://upload-os-bbs.hoyolab.com/upload/2021/02/21/63355475/c24676965b33c9729e55d574317f4e4b_6012764714877069971.png`, 'amber.png', 'AMBER')
+                        if (args[0] === 'bennett' || args[0] === 'childe' || args[0] === 'chongyun' || args[0] === 'diluc' || args[0] === 'diona' || args[0] === 'eula' || args[0] === 'fischl' || args[0] === 'ganyu' || args[0] === 'hutao' || args[0] === 'jean' || args[0] === 'kaeya' || args[0] === 'kazuha' || args[0] === 'keqing' || args[0] === 'klee' || args[0] === 'lisa' || args[0] === 'mona' || args[0] === 'ningguang' || args[0] === 'noelle' || args[0] === 'qiqi' || args[0] === 'razor' || args[0] === 'rosaria' || args[0] === 'sucrose' || args[0] === 'venti' || args[0] === 'xiao' || args[0] === 'xiangling' || args[0] === 'xingqiu' || args[0] === 'xinyan' || args[0] === 'yanfei' || args[0] === 'zhongli') {
+                                path = `./random/buildgi/${args[0]}.jpeg`
+                                await client.sendImage(from, path).catch(err => client.reply(from, resMsg.error.norm, id).then(() => console.log(err)))
                         } else {
                             client.reply(from, 'Character yang kamu cari tidak tersedia!', id)
                         }
