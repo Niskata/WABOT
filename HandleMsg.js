@@ -591,7 +591,7 @@ const HandleMsg = async (client, message, browser) => {
             default:
         }
         // Jika bot dimention maka akan merespon pesan
-        if (message.mentionedJidList && message.mentionedJidList.includes(botNumber)) client.reply(from, `Iya, ada apa?`, id)
+        if (message.mentionedJidList && message.mentionedJidList.includes(botNumber)) client.sendFile(from, ./random/nani.mp3, ' ', id)
 
         // Ini Command nya
 	if (isCmd) { 
