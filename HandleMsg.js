@@ -1034,8 +1034,8 @@ const HandleMsg = async (client, message, browser) => {
                         if (args.length == 0) return client.reply(from, 'Kirim perintah *#nulis [teks]*', id)
                         const nuliss = encodeURIComponent(body.slice(7))
                         client.reply(from, resMsg.wait)
-                        const urlnulis = `https://api.zeks.xyz/api/nulis?text=${nuliss}&apikey=nishikata`
-                        await client.sendFileFromUrl(from, urlnulis, 'Nulis.jpeg', 'Nih anjim').catch(e => {
+                        const urlnulis = `http://zekais-api.herokuapp.com/bukukanan?text=`
+                        await client.sendFileFromUrl(from, urlnulis, 'Nulis.jpeg', ' ').catch(e => {
                             console.log(`Nulis err : ${e}`)
                             return client.sendText(from, 'Mungkin Sedang Dalam Perbaikan', id)
                         })
@@ -1409,7 +1409,7 @@ const HandleMsg = async (client, message, browser) => {
                     client.reply(from, `*Maaf Terdapat kesalahan saat mengambil data, mohon pilih media lain...*`, id)
                 } else {
                     const { title, thumb, channel, uploadDate, views, result } = await webplay.data
-                    await client.sendFileFromUrl(from, thumb, 'THUMBNAIL.jpg', `Video ditemukan\n\nJudul: ${title}\nChannel: ${channel}\nUploaded: ${uploadDate}\nView: ${views}\n\n_Audio sedang dikirim_`, id)
+                    await client.sendFileFromUrl(from, thumb, 'THUMBNAIL.jpg', `Video ditemukan\n\nJudul: ${title}\nChannel: ${channel}\nUploaded: ${uploadDate}\n\n_Audio sedang dikirim_`, id)
                     await client.sendFileFromUrl(from, result, `${title}.mp3`, '')
                     console.log(color(`Audio processed for ${processTime(t, moment())} seconds`, 'aqua'))
                 }
